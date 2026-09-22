@@ -3,67 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent 智能体竞赛自测</title>
+  <title>提示词工程 AI 评分工具</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <main class="card" id="questionCard">
+
+    <header class="header">
+      <h1>提示词工程 AI 评分工具</h1>
+      <p class="subtitle">8 维加权评分 · 大模型逐维评审 · 备考任务 B 用</p>
+    </header>
+
+    <div class="mode-bar">
+      <a class="mode-btn active" href="/">评分工具</a>
+      <a class="mode-btn" href="/quiz.html">刷题自测</a>
+    </div>
+
+    <main class="card score-card">
       <div class="question-meta">
-        <span class="badge" id="typeBadge">单选</span>
-        <span class="badge category" id="categoryBadge">系统设计</span>
-        <span class="badge" id="answerStatus" style="display:none"></span>
+        <span class="badge">评分模型</span>
+        <span class="badge category">deepseek-v4-flash</span>
       </div>
-      <h2 class="question-text" id="questionText"></h2>
-      <div class="options" id="optionsList"></div>
 
-      <div class="feedback" id="feedback" style="display:none"></div>
+      <div class="score-form">
+        <label class="field-label" for="questionSelect">题目选择（评分按该题考察要点进行）</label>
+        <select id="questionSelect" class="question-select"></select>
 
-      <div class="actions">
-        <button class="btn btn-primary" id="submitBtn">提交答案</button>
-        <button class="btn btn-next" id="nextBtn" style="display:none">下一题</button>
+        <div class="question-info" id="questionInfo" style="display:none">
+          <div class="question-info-head">
+            <span class="badge" id="qDifficulty"></span>
+            <span class="badge category" id="qTags"></span>
+          </div>
+          <div class="sub-label">本题考察要点（评分核查标准）</div>
+          <ul class="focus-points" id="qFocusList"></ul>
+        </div>
+
+        <label class="field-label" for="taskInput">题目要求（可编辑）</label>
+        <textarea id="taskInput" class="prompt-input task-input" rows="6"
+          placeholder="在这里填写题目要求"></textarea>
+
+        <label class="field-label" for="promptInput">你的 System Prompt</label>
+        <textarea id="promptInput" class="prompt-input" rows="12"
+          placeholder="粘贴你要评分的中文 System Prompt 到这里…"></textarea>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="scoreBtn">开始 AI 评分</button>
+          <button class="btn btn-next" id="loadSampleBtn">载入参考示例</button>
+        </div>
+        <p class="hint" id="hint">评分由大模型自动完成，通常需要 10~30 秒，请耐心等待。</p>
       </div>
     </main>
 
-    <header class="header">
-      <h1>Agent 智能体竞赛自测</h1>
-      <p class="subtitle">一次一题 · 即时批改 · 考前冲刺</p>
-    </header>
-
-    <div class="stats-bar">
+    <div class="stats-bar score-stats" id="scoreStats" style="display:none">
       <div class="stat">
-        <span class="stat-label">进度</span>
-        <span class="stat-value" id="progressText">0/0</span>
+        <span class="stat-label">总分</span>
+        <span class="stat-value" id="totalScore">--</span>
       </div>
       <div class="stat">
-        <span class="stat-label">本轮答对</span>
-        <span class="stat-value correct" id="correctCount">0</span>
+        <span class="stat-label">等级</span>
+        <span class="stat-value" id="levelValue">--</span>
       </div>
       <div class="stat">
-        <span class="stat-label">本轮答错</span>
-        <span class="stat-value wrong" id="wrongCount">0</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">累计正确率</span>
-        <span class="stat-value" id="cumRate">--</span>
+        <span class="stat-label">提示词字数</span>
+        <span class="stat-value" id="promptLen">--</span>
       </div>
     </div>
 
-    <div class="mode-bar">
-      <button class="mode-btn active" id="modeAll">全部题目</button>
-      <button class="mode-btn" id="modeWrong">错题重练<span class="wrong-badge" id="wrongBadge" style="display:none"></span></button>
+    <div class="score-result" id="scoreResult" style="display:none">
+      <h3 class="result-title">评分结果</h3>
+      <p class="result-summary" id="summaryText"></p>
+
+      <div class="dim-list" id="dimList"></div>
+
+      <div class="answer-block">
+        <span class="answer-label ok-label">优点</span>
+        <ul class="result-list" id="strengthsList"></ul>
+      </div>
+      <div class="answer-block">
+        <span class="answer-label no-label">改进建议</span>
+        <ul class="result-list" id="improvementsList"></ul>
+      </div>
+
+      <div class="answer-block" id="focusCheckBlock" style="display:none">
+        <span class="answer-label info-label">本题考察点核查</span>
+        <div class="focus-checks" id="focusChecks"></div>
+      </div>
+
+      <div class="analysis-panel" id="analysisPanel" style="display:none">
+        <h4 class="analysis-title">题目解析</h4>
+        <div class="analysis-body" id="analysisBody"></div>
+      </div>
     </div>
 
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
+    <div class="error-box" id="errorBox" style="display:none"></div>
 
     <footer class="footer">
-      <p id="footerText"></p>
+      <p id="footerText">依据业界提示词工程规范（角色 / 任务 / 结构 / 上下文 / 约束 / 输出格式 / 边界 / 示例）自动评分。</p>
     </footer>
   </div>
 
-  <script src="questions.js"></script>
-  <script src="app.js"></script>
+  <script src="scorer.js"></script>
 </body>
 </html>

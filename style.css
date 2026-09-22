@@ -390,6 +390,266 @@ body {
   font-size: 13px;
 }
 
+/* ================= 提示词评分工具样式 ================= */
+
+.score-card {
+  min-height: 0;
+}
+
+.score-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #4a5568;
+}
+
+.prompt-input {
+  width: 100%;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  resize: vertical;
+  color: #2d3748;
+  transition: border-color 0.2s ease;
+}
+
+.prompt-input:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+.task-input {
+  background: #fafafa;
+  font-size: 13px;
+}
+
+.hint {
+  font-size: 12px;
+  color: #a0aec0;
+}
+
+.score-stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.score-result {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 12px;
+}
+
+.result-title {
+  font-size: 18px;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.result-summary {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #4a5568;
+  background: #f5f6ff;
+  border: 1px solid #e0e7ff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.dim-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.dim-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dim-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dim-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.dim-score {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.dim-bar {
+  height: 8px;
+  background: #edf2f7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dim-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.dim-comment {
+  font-size: 12px;
+  color: #718096;
+  line-height: 1.6;
+}
+
+.result-list {
+  margin: 6px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.result-list li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2d3748;
+}
+
+.error-box {
+  margin-top: 12px;
+  padding: 16px;
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  color: #742a2a;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.stat-value.level-a { color: #38a169; }
+.stat-value.level-b { color: #4f46e5; }
+.stat-value.level-c { color: #d69e2e; }
+.stat-value.level-d { color: #e53e3e; }
+
+/* 题目选择与解析 */
+.question-select {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.question-info {
+  margin-bottom: 14px;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #4f46e5;
+}
+
+.question-info-background {
+  background: #f7f8fc;
+}
+
+.question-info {
+  background: #f7f8fc;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.question-info-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.sub-label {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.focus-points {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.7;
+}
+
+.focus-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.focus-check-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.fc-ok, .fc-miss {
+  flex-shrink: 0;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.fc-ok {
+  background: #38a169;
+}
+
+.fc-miss {
+  background: #e53e3e;
+}
+
+.fc-text {
+  color: #334155;
+}
+
+.answer-label.info-label {
+  background: #4f46e5;
+}
+
+.analysis-panel {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+}
+
+.analysis-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #4338ca;
+}
+
+.analysis-body {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #3730a3;
+  white-space: pre-wrap;
+}
+
 @media (max-width: 480px) {
   .header h1 {
     font-size: 22px;
